@@ -1,0 +1,256 @@
+<html>
+	<head>
+		<title>Search Contact - by AbdelZinir</title>
+		<style>
+			body{
+				background-color: #be9b7d;
+				margin: 0;
+				padding: 0;
+			}
+			#global,.h3,.span{
+				--webkit-user-select: none;	
+			}
+			#container{
+				margin: 0 auto;
+				margin-top: 50px;
+				width: 300px;
+				height: 500px;
+				background-color: #fff;
+				-webkit-box-shadow: -1px 0px 8px 0px rgba(50, 50, 50, 0.77);
+				border-radius: 5px;
+			}
+			#toolbox{
+				width: 100%;
+				background-color: #776b5d;
+				height: 40px;
+				border-radius: 4px 4px 0px 0;
+			}
+			#close{
+				background-image: url(imgs/close.png);
+				float: left;
+				width: 16px;
+				height: 18px;
+				margin-left: 5px;
+				margin-top: 5px;
+			}
+			#close:hover{
+				background-image: url(imgs/closehover.png);
+			}
+			#loadcsv{
+				background-image: url(imgs/system.png);
+				width: 36px;
+				height: 36px;
+				float: right;
+				margin-right: 5px;
+				margin-top: 2px;
+			}
+			#searchbox{
+				border-bottom: 1px solid #e1dddc;
+				width: 100%;
+				float: left;
+				height: 50px;
+			}
+			#searchbox label{
+				display: block;
+				position: absolute;
+				margin-left: 30px;
+				margin-top: 12px;
+			}
+			#searchbox label img{
+				width: 25px;
+				height: 25px;
+			}
+			#search{
+				margin-top: 5px;
+				width: 250px;
+				height: 30px;
+				border-radius: 30px;
+				float: left;
+				border: 1px solid #e1dddc;
+				margin-left: 25px;
+				margin-top: 10px;
+				padding-left: 30px;
+				box-sizing: border-box;
+				--webkit-tap-highlight-color: #e1dddc;
+				color: #969495;
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			#results{
+				width: 100%;
+				float: left;
+				overflow-y: scroll;
+				height: 394px;
+			}
+			#results .result, .noresult{
+				height: 110px;
+				width: 100%;
+				float: left;
+				padding-top: 15px;
+				padding-left: 15px;
+				box-sizing: border-box;
+				border-bottom: 1px solid #e1dddc;
+			}
+			#results .result:hover, .noresult:hover{
+				background-color: #f7f7f7;
+			}
+			#results .result img{
+				float: left;
+				width: 50px;
+				border-radius: 0;
+				margin-right: 10px;
+				margin-top: 10px;
+			}
+			#results .result h3{
+				color: #f67562;
+				font-size: 13px;
+				font-family: sans-serif;
+			}
+			.noresult{
+				display: none;
+			}
+			.home{
+				background-image: url(imgs/home.png);
+				background-position: 0% 50%;
+				background-repeat: no-repeat;
+				padding-left: 18px;
+				height: 20px;
+				line-height: 20px;
+				color: #969495;
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			.mobile{
+				background-image: url(imgs/phone.png);
+				background-position: 0% 50%;
+				background-repeat: no-repeat;
+				padding-left: 18px;
+				height: 20px;
+				line-height: 20px;
+				color: #969495;
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			.noresult h3{
+				background-image: url(imgs/alert.png);
+				background-position: 0% 50%;
+				background-repeat: no-repeat;
+				padding-left: 40px;
+				height: 36px;
+				line-height: 16px;
+				color: #f67562;
+				font-size: 13px;
+				font-family: sans-serif;
+			}
+			.error h3{
+				background-image: url(imgs/error.png);
+				background-position: 0% 50%;
+				background-repeat: no-repeat;
+				padding-left: 40px;
+				height: 36px;
+				line-height: 16px;
+				color: #f67562;
+				font-size: 13px;
+				font-family: sans-serif;
+			}
+			#copyright{
+				float: left;
+				width: 100%;
+				height: 15px;
+				font-family: sans-serif;
+				font-size: 11px;
+				color: #776b5d;
+			}
+		</style>
+	</head>
+	<body>
+		<input style="display:none" id="fileDialog" type="file" />
+		<div id="global">
+			<div id="container">
+				<div id="toolbox">
+					<span id="close"></span>
+					<span id="loadcsv"></span>
+				</div>
+				<div id="searchbox">
+					<label for="search">
+						<img src="imgs/search.png" alt="">
+					</label>
+					<input type="text" id="search">
+				</div>
+				<div id="results">
+					<div class="noresult">
+						<h3>pas de contact pour la recherche que vous avez entrer</h3>
+					</div>
+					<div class="error">
+						<h3>Vous devez selectioner un fichier .csv valide</h3>
+					</div>
+				</div>
+				<div  id="copyright">Created by AbdelZinir - NodeWebKit ;) </div>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script tye="text/javascript">
+				$('#search').on('keyup change', function() {
+			    	var searchval = $('#search').val();
+			    	$('.result').each(function(){
+			    		if(searchval != ''){
+			    			var text = $(this).find('h3').text();
+				    		if($(this).find('h3').text().toLowerCase().indexOf(searchval.toLowerCase()) != -1 || $(this).find('.home').text().indexOf(searchval) != -1 || $(this).find('.mobile').text().indexOf(searchval) != -1){
+				    			$(this).addClass('show').show();
+				    		}else{
+				    			$(this).removeClass('show').hide();
+				    		}
+			    		}else{
+			    			$(this).addClass('show').show();
+			    		}
+			    	});
+			    	if($('.result.show').length == 0){
+			    		$('.noresult').show();
+			    	}else{
+			    		$('.noresult').hide();
+			    	}
+			    });
+
+
+				$('#search').prop('disabled', true);
+			    $('#close').click(function(){
+			    	window.close();
+			    });
+			    function loadcontacts(pathcsv){
+			    	if(pathcsv.substring(pathcsv.length-3,pathcsv.length) == 'csv'){
+						$('.error').hide();
+						$('#search').prop('disabled', false);
+						var Converter=require("csvtojson").core.Converter;
+						var csvFileName=pathcsv;
+						var csvConverter=new Converter();
+						$('.result').remove();
+						csvConverter.on("end_parsed",function(contacts){
+						   for (var i = 0; i < contacts['csvRows'].length; i++) {
+						   	var result = '<div class="result"><img src="imgs/profile.png" alt=""><h3>'+ contacts['csvRows'][i]['name'] +'</h3><span class="home">'+ contacts['csvRows'][i]['tel1'] +'</span><span class="mobile">'+ contacts['csvRows'][i]['tel2'] +'</span></div>';
+							$('#results').append(result);
+						   }
+						});
+						csvConverter.from(csvFileName);
+			    	}else{
+						$('.result').remove();
+						$('#search').prop('disabled', true);
+			    		$('.error').show();
+			    	}
+			    }
+
+				function chooseFile(name) {
+					var chooser = document.querySelector(name);
+					chooser.addEventListener("change", function(evt) {
+					  	loadcontacts(this.value);
+					});
+
+					chooser.click();  
+				}
+				chooseFile('#fileDialog');
+
+				$('#loadcsv').click(function(){
+					chooseFile('#fileDialog');
+				});
+		</script>
+	</body>
+</html>

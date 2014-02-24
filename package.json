@@ -1,0 +1,17 @@
+{
+	"name": "AppSearchContact",
+	"main": "index.html",
+	"window":{
+		"toolbar":false,
+		"width": 400,
+		"height":600,
+		"min-width":400,
+		"min-height":600,
+		"min_width": 400,
+	    "min_height": 600,
+	    "max_width": 400,
+	    "max_height": 600,
+		"frame":false,
+		"icon": "icon.png"
+  	}
+}

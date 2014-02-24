@@ -1,0 +1,3 @@
+name,tel1,tel2,email
+Abdellah Inirz,0611330087,064877435,abdellah.inirz@gmail.com
+test,0615748420,064872105,test@gmail.com
